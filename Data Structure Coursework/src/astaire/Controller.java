@@ -9,7 +9,7 @@ package astaire;
  * prototype system is expected to have.
  * 
  * @author Sylvia Wong
- * @version 29/10/2018
+ * @version 08/11/2018
  */
 public interface Controller {
 	
@@ -30,13 +30,16 @@ public interface Controller {
 	/**
 	 * Checks feasibility of a given running order.
 	 * @param filename	the name of a tab-separated CSV file containing a proposed running order
+	 * @param gaps the required number of gaps between dances for each dancer
 	 * @return	a String representation of potential issues
 	 */
-	String checkFeasibilityOfRunningOrder(String filename);
+	String checkFeasibilityOfRunningOrder(String filename, int gaps);
 	
 	/**
 	 * Generates a running order of the dances for the dance show.
+	 * @param gaps the required number of gaps between dances for each dancer
+	 * @param  
 	 * @return	a String representation of the generate running order
 	 */
-	String generateRunningOrder();
+	String generateRunningOrder(int gaps);
 }

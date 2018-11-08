@@ -9,7 +9,7 @@ import java.util.Scanner;
  * A simple text-based user interface for the dance show programme generator.
  * 
  * @author S H S Wong
- * @version 29/10/2018
+ * @version  08/11/2018
  */
 public class TUI {
 
@@ -55,11 +55,23 @@ public class TUI {
 		case "3" : // Checks the feasibility of a given running order
 			display("Checks the feasibility of a given running order...");
 			display("Enter the name of the CSV file with the proposed running order:");
-			display(controller.checkFeasibilityOfRunningOrder(stdIn.nextLine().trim()));
+			String dataFile = stdIn.nextLine().trim();
+			display("Enter the required number of gaps between dances:");
+			String gap = stdIn.nextLine().trim();
+			try {
+				display(controller.checkFeasibilityOfRunningOrder(dataFile, (new Integer(gap)).intValue()));
+			} catch (NumberFormatException e) {
+				display("You have not entered the number of gaps as an integer. Sorry, no checking can be done.");
+			}
 			break;
 		case "4" : // Generates a running order of all dance numbers
 			display("Generates a running order...");
-			display(controller.generateRunningOrder());
+			display("Enter the required number of gaps between dances:");
+			try {
+				display(controller.generateRunningOrder((new Integer(stdIn.nextLine().trim())).intValue()));
+			} catch (NumberFormatException e) {
+				display("You have not entered the number of gaps as an integer. Sorry, no checking can be done.");
+			}
 			break;
 		case "5" : // Exits the application
 			display("Goodbye!");

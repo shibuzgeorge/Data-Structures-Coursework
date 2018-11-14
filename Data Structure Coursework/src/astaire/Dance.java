@@ -1,29 +1,27 @@
 package astaire;
 
-public class Dance implements Controller{
+public class Dance<T> {
 
-	@Override
-	public String listAllDancersIn(String dance) {
-		// TODO Auto-generated method stub
-		return null;
+	private int Id;
+	private String name;
+	private QueueADT<T> performers;
+	public int getId() {
+		return Id;
 	}
-
-	@Override
-	public String listAllDancesAndPerformers() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setId(int id) {
+		Id = id;
 	}
-
-	@Override
-	public String checkFeasibilityOfRunningOrder(String filename, int gaps) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() {
+		return name;
 	}
-
-	@Override
-	public String generateRunningOrder(int gaps) {
-		// TODO Auto-generated method stub
-		return null;
+	public void setName(String name) {
+		this.name = name;
 	}
-
+	public QueueADT<T> getPerformers() {
+		return performers;
+	}
+	public void setPerformers(QueueADT<T> performers) {
+		this.performers = performers;
+	}
+	
 }

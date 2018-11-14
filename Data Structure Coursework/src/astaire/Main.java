@@ -1,17 +1,13 @@
 package astaire;
 
-import java.util.Scanner;
-
 public class Main {
-
-	private static  TUI functions;
-	private static Scanner scan;
-	private static Dance dance;
-
+	
+	static TUI tui;
+	static DanceShowGenerator dsg;
+	
 	public static void main(String[] args) {
-		functions = new TUI(dance);
-
+		dsg = new DanceShowGenerator();
+		tui = new TUI(dsg);
 	}
-
 	
 }

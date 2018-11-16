@@ -1,21 +1,20 @@
 package astaire;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 public class InputReader {
 	
 	String path;
 	String[] lines;
-	String[] groups;
+	String[] names;
+	String[] groupNames;
 	
-	public InputReader(String filePath) {
-		path = filePath;
+	public InputReader() {
 	}
 	
 	public String[] OpenFile() throws IOException{
@@ -44,17 +43,60 @@ public class InputReader {
 		}
 		bf.close();
 		return numOfLines;
-	}
+	}	
 	
-	public void read() {
-		
+	public String[] readGroupNames(String fileName) {
+		path = fileName;
 		 try {
 			 lines = OpenFile();
 			 for (int i = 1; i < lines.length; i++) {
-				System.out.println(lines[i].substring(0, lines[i].indexOf("\t"))); //Group names
-				
-				System.out.println(lines[i].substring(lines[i].indexOf("\t")+1)); //List of performer names
-				
+				 
+				//System.out.println(lines[i].substring(0, lines[i].indexOf("\t"))); //Group names
+				String line = (lines[i].substring(0, lines[i].indexOf("\t")));
+				String[] groupNames = line.split("\t");
+				for (int j = 0; j < groupNames.length; j++) {
+					System.out.println(groupNames[j].substring(0));
+				}
+			 }
+		 }catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return groupNames;
+	}
+	
+	public String[] readPerfomerNames(String fileName) {
+		path = fileName;
+		int k = 0;
+		 try {
+			 lines = OpenFile();
+			 for (int i = 1; i < lines.length; i++) {
+				//Prints all names of performers
+				String line = (lines[i].substring(lines[i].indexOf("\t")+1));
+				names = line.split(",");
+				for (int j = 0; j < names.length; j++) {
+					new Performer(k, names[j]);
+					k++;
+				}
+			 }
+		 }catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return names;
+	}
+	
+	public void readDances(String fileName) {
+		path = fileName;
+		int k = 0;
+		try {
+			 lines = OpenFile();
+			 for (int i = 1; i < lines.length; i++) {
+				//Prints all names of performers
+				 String line = (lines[i].substring(0, lines[i].indexOf("\t")));
+					String[] danceNames = line.split("\t");
+					for (int j = 0; j < danceNames.length; j++) {
+						new Dance(k, danceNames[j]).getName();
+						k++;
+					}
 			 }
 		 }catch (IOException e) {
 			System.out.println(e.getMessage());

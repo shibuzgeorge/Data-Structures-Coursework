@@ -6,8 +6,9 @@ public class DanceShowGenerator implements Controller{
 	InputReader ir;
 	
 	public DanceShowGenerator() {
-		ir = new InputReader("astaireDataFiles/danceShowData_danceGroups.csv");
-		ir.read();
+		ir = new InputReader();
+		ir.readPerfomerNames("astaireDataFiles/danceShowData_danceGroups.csv");
+		ir.readDances("astaireDataFiles/danceShowData_dances.csv");
 	}
 
 	@Override

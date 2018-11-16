@@ -4,8 +4,16 @@ public class Performer {
 	
 	int ID;
 	String Name;
+	String  names ;
+	InputReader ir;
 	public int getID() {
 		return ID;
+	}
+	
+	public Performer(int id_p, String name_param) {
+		ID = id_p;
+		Name = name_param;
+		
 	}
 
 	public void setID(int iD) {
@@ -31,6 +39,11 @@ public class Performer {
 	Group group;
 	
 	public Performer() {
+		
+	}
+	
+	public String toString() {
+		return Name;
 		
 	}
 	

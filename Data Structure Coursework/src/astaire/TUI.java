@@ -120,9 +120,4 @@ public class TUI {
     private static String unrecogniseCommandErrorMsg(String error) {
             return String.format("Cannot recognise the given command: %s.%n", error);
     }
-    
-//    public static void main(String[] args) {
-//    	getAndProcessUserOption();
-//
-//	}
 }

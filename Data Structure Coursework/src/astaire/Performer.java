@@ -4,8 +4,7 @@ public class Performer {
 	
 	int ID;
 	String Name;
-	String  names ;
-	InputReader ir;
+	Group group;
 	public int getID() {
 		return ID;
 	}
@@ -35,13 +34,6 @@ public class Performer {
 	public void setGroup(Group group) {
 		this.group = group;
 	}
-
-	Group group;
-	
-	public Performer() {
-		
-	}
-	
 	public String toString() {
 		return Name;
 		

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
@@ -12,9 +13,19 @@ public class InputReader {
 	String path;
 	String[] lines;
 	String[] names;
-	String[] groupNames;
+	
+	ArrayList<Group> groupArray;
+	ArrayList<Dance> danceArray;
+	ArrayList<Performer> performers;
+	
+	int externalID = 100;
+	
+ 	private HashMap<String, ArrayList<Performer>> danceMap;
 	
 	public InputReader() {
+		groupArray = new ArrayList<Group>();
+		performers = new ArrayList<Performer>();
+		danceArray = new ArrayList<Dance>();
 	}
 	
 	public String[] OpenFile() throws IOException{
@@ -45,43 +56,72 @@ public class InputReader {
 		return numOfLines;
 	}	
 	
-	public String[] readGroupNames(String fileName) {
-		path = fileName;
-		 try {
-			 lines = OpenFile();
-			 for (int i = 1; i < lines.length; i++) {
-				 
-				//System.out.println(lines[i].substring(0, lines[i].indexOf("\t"))); //Group names
-				String line = (lines[i].substring(0, lines[i].indexOf("\t")));
-				String[] groupNames = line.split("\t");
-				for (int j = 0; j < groupNames.length; j++) {
-					System.out.println(groupNames[j].substring(0));
-				}
-			 }
-		 }catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-		return groupNames;
-	}
-	
-	public String[] readPerfomerNames(String fileName) {
+	public void readGroupNames(String fileName) {
 		path = fileName;
 		int k = 0;
 		 try {
 			 lines = OpenFile();
-			 for (int i = 1; i < lines.length; i++) {
-				//Prints all names of performers
-				String line = (lines[i].substring(lines[i].indexOf("\t")+1));
-				names = line.split(",");
-				for (int j = 0; j < names.length; j++) {
-					new Performer(k, names[j]);
+			 for (int i = 1; i < lines.length-1; i++) {
+				//System.out.println(lines[i].substring(0, lines[i].indexOf("\t"))); //Group names
+				String line = (lines[i].substring(0, lines[i].indexOf("\t")));
+				String[] groupNames = line.split("\t");
+				for (int j = 0; j < groupNames.length; j++) {
+					//new Group(j, groupNames[j]).getName();
+					groupArray.add(new Group(k, groupNames[j]));
+					//System.out.println(groupArray[k].getName());
 					k++;
 				}
 			 }
 		 }catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
-		return names;
+	}
+	
+	public void readNames(String fileName, boolean createGroup) {
+		path = fileName;
+		int k = 0;
+		int h = 0;
+		danceMap = new HashMap<String, ArrayList<Performer>>();
+		 try {
+			 lines = OpenFile();
+			 for (int i = 1; i < lines.length; i++) {
+				 
+				//Prints all names of performers
+				String line = (lines[i].substring(lines[i].indexOf("\t")+1));
+				names = line.split(",");
+					for (int j = 0; j < names.length; j++) {
+						if (createGroup) {
+							//System.out.println(groupArray[h].getID());
+							groupArray.get(h).addPerformer(new Performer(k, names[j]));
+							//System.out.println(groupArray[h].getPerformerList().get(j).getName());
+							k++;
+						} else {
+							if (names[j].substring(0).equals(groupArray.get(h).getName())) {
+								for (int l = 0; l < groupArray.get(h).getPerformerList().size(); l++) {
+									//System.out.println(groupArray[h].getPerformerList().get(l).getName());
+									performers.add(groupArray.get(h).getPerformerList().get(l));
+								}
+							} else {
+								performers.add(new Performer(externalID, names[j]));
+								//System.out.println(performers.get(0));
+								externalID++;
+							}
+						}
+					}
+					if (h < groupArray.size()-2) {
+						h++;
+					} else {
+						break;
+					}
+			 }
+		 }catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+//		 for (int i = 0; i < groupArray.size(); i++) {
+//			 for (int j = 0; j < groupArray.get(i).getPerformerList().size(); j++) {
+//				System.out.println(groupArray.get(i).getPerformerList().get(j).getName());
+//			}
+//		}
 	}
 	
 	public void readDances(String fileName) {
@@ -92,9 +132,9 @@ public class InputReader {
 			 for (int i = 1; i < lines.length; i++) {
 				//Prints all names of performers
 				 String line = (lines[i].substring(0, lines[i].indexOf("\t")));
-					String[] danceNames = line.split("\t");
+				 String[] danceNames = line.split("\t");
 					for (int j = 0; j < danceNames.length; j++) {
-						new Dance(k, danceNames[j]).getName();
+						danceArray.add(new Dance(k, danceNames[j]));
 						k++;
 					}
 			 }

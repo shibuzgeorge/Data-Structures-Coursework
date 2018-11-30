@@ -8,7 +8,7 @@ public class Main {
 	
 	public Main() {
 		dance = new Dance(69, "b");
-		dance.exampleMethod();
+		
 		dsg = new DanceShowGenerator();
 		tui = new TUI(dsg);
 	}

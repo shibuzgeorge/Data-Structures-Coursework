@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeSet;
 
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
@@ -20,12 +21,13 @@ public class InputReader {
 	
 	int externalID = 100;
 	
- 	private HashMap<String, ArrayList<Performer>> danceMap;
+ 	private HashMap<String, TreeSet<Performer>> danceMap;
 	
 	public InputReader() {
 		groupArray = new ArrayList<Group>();
 		performers = new ArrayList<Performer>();
 		danceArray = new ArrayList<Dance>();
+		
 	}
 	
 	public String[] OpenFile() throws IOException{
@@ -81,7 +83,8 @@ public class InputReader {
 		path = fileName;
 		int k = 0;
 		int h = 0;
-		danceMap = new HashMap<String, ArrayList<Performer>>();
+		int m = 0;
+		danceMap = new HashMap<String, TreeSet<Performer>>();
 		 try {
 			 lines = OpenFile();
 			 for (int i = 1; i < lines.length; i++) {
@@ -96,11 +99,26 @@ public class InputReader {
 							//System.out.println(groupArray[h].getPerformerList().get(j).getName());
 							k++;
 						} else {
+							//IF GROUP NAMES MATCH
 							if (names[j].substring(0).equals(groupArray.get(h).getName())) {
+								System.out.println("Match");
+								//FOR ALL NAMES IN THAT GROUP
 								for (int l = 0; l < groupArray.get(h).getPerformerList().size(); l++) {
 									//System.out.println(groupArray[h].getPerformerList().get(l).getName());
-									performers.add(groupArray.get(h).getPerformerList().get(l));
+									//performers.add(groupArray.get(h).getPerformerList().get(l));
+									
+									//Add those performers to dance
+									//System.out.println(groupArray.get(h).getPerformerList().get(l).getName());
+									danceArray.get(m).getPerformerTree().add(groupArray.get(h).getPerformerList().get(l));
+									System.out.println(danceArray.get(m).getPerformerTree().iterator().next());
+									System.out.println(danceArray.get(m).getName());
 								}
+								m++;
+								danceMap.put(danceArray.get(i).getName(), danceArray.get(m).getPerformerTree());
+//								for (int j2 = 0; j2 < danceArray.get(i).getPerformerTree().size(); j2++) {
+//									System.out.println(danceArray.get(i).getPerformers());	
+//								}
+								
 							} else {
 								performers.add(new Performer(externalID, names[j]));
 								//System.out.println(performers.get(0));
@@ -141,6 +159,14 @@ public class InputReader {
 		 }catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	public HashMap<String, TreeSet<Performer>> getDanceMap() {
+		return danceMap;
+	}
+
+	public void setDanceMap(HashMap<String, TreeSet<Performer>> danceMap) {
+		this.danceMap = danceMap;
 	}
 	
 }

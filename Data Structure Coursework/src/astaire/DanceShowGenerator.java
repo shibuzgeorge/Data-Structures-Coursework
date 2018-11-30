@@ -25,17 +25,17 @@ public class DanceShowGenerator implements Controller{
 			System.out.println("typed: " + dance);
 			System.out.println("inspected: " + ir.danceArray.get(i).getName());
 			
-			if (dance.equals(ir.danceArray.get(i).getName())) {
+			if (dance.contains(ir.danceArray.get(i).getName())) {
 				System.out.println(dance);
 				System.out.println(ir.danceArray.get(i).getName());
 				for (Performer p: tempSet) {
 					System.out.println("luns");
 					temp += p.getName();
 				}
+				break;
 			} else {
 				System.out.println("DANCE NAME NOT FOUND");
 			}
-			break;
 		}
 		return dance + temp;
 	}

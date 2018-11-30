@@ -13,7 +13,6 @@ public class InputReader {
 	
 	String path;
 	String[] lines;
-	String[] names;
 	
 	ArrayList<Group> groupArray;
 	ArrayList<Dance> danceArray;
@@ -63,14 +62,14 @@ public class InputReader {
 		int k = 0;
 		 try {
 			 lines = OpenFile();
-			 for (int i = 1; i < lines.length-1; i++) {
-				//System.out.println(lines[i].substring(0, lines[i].indexOf("\t"))); //Group names
+			 for (int i = 1; i < lines.length; i++) {
 				String line = (lines[i].substring(0, lines[i].indexOf("\t")));
 				String[] groupNames = line.split("\t");
 				for (int j = 0; j < groupNames.length; j++) {
 					//new Group(j, groupNames[j]).getName();
 					groupArray.add(new Group(k, groupNames[j]));
-					//System.out.println(groupArray[k].getName());
+					//PRINTS GROUP NAMES
+					//System.out.println(groupArray.get(k).getName());
 					k++;
 				}
 			 }
@@ -83,47 +82,49 @@ public class InputReader {
 		path = fileName;
 		int k = 0;
 		int h = 0;
-		int m = 0;
+		
 		danceMap = new HashMap<String, TreeSet<Performer>>();
 		 try {
 			 lines = OpenFile();
 			 for (int i = 1; i < lines.length; i++) {
 				 
 				//Prints all names of performers
-				String line = (lines[i].substring(lines[i].indexOf("\t")+1));
-				names = line.split(",");
+				String eachLine = (lines[i].substring(lines[i].indexOf("\t")+1));
+				String[] names = eachLine.split(",");
 					for (int j = 0; j < names.length; j++) {
 						if (createGroup) {
 							//System.out.println(groupArray[h].getID());
 							groupArray.get(h).addPerformer(new Performer(k, names[j]));
-							//System.out.println(groupArray[h].getPerformerList().get(j).getName());
+							//System.out.println(groupArray.get(h).getPerformerList().get(j).getName());
 							k++;
 						} else {
-							//IF GROUP NAMES MATCH  !!Doesn't match correctly!!
+							//IF GROUP NAMES MATCH
 							System.out.println(names[j]);
-							
-							if (names[j].contains(groupArray.get(h).getName())) {
-								System.out.println("Match");
-								//FOR ALL NAMES IN THAT GROUP
-								for (int l = 0; l < groupArray.get(h).getPerformerList().size(); l++) {
-									
-									//Add those performers to dance
-									//System.out.println(groupArray.get(h).getPerformerList().get(l).getName());
-									danceArray.get(m).getPerformerTree().add(groupArray.get(h).getPerformerList().get(l));
-									System.out.println(danceArray.get(m).getPerformerTree().iterator().next());
-									System.out.println(danceArray.get(m).getName());
+							for(Group s: groupArray) {
+								//System.out.println(names[j].contains(s.getName()));
+								if(names[j].contains(s.getName())) {
+									System.out.println("Match");
+									for (int l = 0; l < s.getPerformerList().size(); l++) {
+										
+										//Add those performers to dance
+										//System.out.println(groupArray.get(h).getPerformerList().get(l).getName());
+										danceArray.get(i-1).getPerformerTree().add(s.getPerformerList().get(l));
+										System.out.println(danceArray.get(i-1).getPerformerTree().iterator().next());
+										System.out.println(danceArray.get(i-1).getName());
+										System.out.println(i-1);
+									}
 								}
-								m++;
-								danceMap.put(danceArray.get(m).getName(), danceArray.get(m).getPerformerTree());
-								
-							} else {
-								performers.add(new Performer(externalID, names[j]));
-								//System.out.println(performers.get(0));
-								externalID++;
+									
+//								 else {
+//									//NEED TO FIND A WAY TO SEPERATE THE NAMES
+//									//System.out.println("new Performer");
+//									danceArray.get(i-1).getPerformerTree().add(new Performer(externalID, names[j]));
+//									externalID++;
+//								}
 							}
 						}
 					}
-					if (h < groupArray.size()-2) {
+					if (h < groupArray.size()-1) {
 						h++;
 					} else {
 						break;

@@ -126,8 +126,6 @@ public class InputReader {
 					}
 					if (h < groupArray.size()-1) {
 						h++;
-					} else {
-						break;
 					}
 			 	}
 		 }catch (IOException e) {

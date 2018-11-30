@@ -99,13 +99,13 @@ public class InputReader {
 							//System.out.println(groupArray[h].getPerformerList().get(j).getName());
 							k++;
 						} else {
-							//IF GROUP NAMES MATCH
-							if (names[j].substring(0).equals(groupArray.get(h).getName())) {
+							//IF GROUP NAMES MATCH  !!Doesn't match correctly!!
+							System.out.println(names[j]);
+							
+							if (names[j].contains(groupArray.get(h).getName())) {
 								System.out.println("Match");
 								//FOR ALL NAMES IN THAT GROUP
 								for (int l = 0; l < groupArray.get(h).getPerformerList().size(); l++) {
-									//System.out.println(groupArray[h].getPerformerList().get(l).getName());
-									//performers.add(groupArray.get(h).getPerformerList().get(l));
 									
 									//Add those performers to dance
 									//System.out.println(groupArray.get(h).getPerformerList().get(l).getName());
@@ -114,10 +114,7 @@ public class InputReader {
 									System.out.println(danceArray.get(m).getName());
 								}
 								m++;
-								danceMap.put(danceArray.get(i).getName(), danceArray.get(m).getPerformerTree());
-//								for (int j2 = 0; j2 < danceArray.get(i).getPerformerTree().size(); j2++) {
-//									System.out.println(danceArray.get(i).getPerformers());	
-//								}
+								danceMap.put(danceArray.get(m).getName(), danceArray.get(m).getPerformerTree());
 								
 							} else {
 								performers.add(new Performer(externalID, names[j]));
@@ -131,15 +128,10 @@ public class InputReader {
 					} else {
 						break;
 					}
-			 }
+			 	}
 		 }catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
-//		 for (int i = 0; i < groupArray.size(); i++) {
-//			 for (int j = 0; j < groupArray.get(i).getPerformerList().size(); j++) {
-//				System.out.println(groupArray.get(i).getPerformerList().get(j).getName());
-//			}
-//		}
 	}
 	
 	public void readDances(String fileName) {

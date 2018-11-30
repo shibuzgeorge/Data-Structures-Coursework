@@ -35,6 +35,7 @@ public class DanceShowGenerator implements Controller{
 			} else {
 				System.out.println("DANCE NAME NOT FOUND");
 			}
+			break;
 		}
 		return dance + temp;
 	}

@@ -114,8 +114,7 @@ public class InputReader {
 										System.out.println(i-1);
 									}
 								}
-									
-//								 else {
+//								else {
 //									//NEED TO FIND A WAY TO SEPERATE THE NAMES
 //									//System.out.println("new Performer");
 //									danceArray.get(i-1).getPerformerTree().add(new Performer(externalID, names[j]));

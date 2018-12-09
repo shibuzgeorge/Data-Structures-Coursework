@@ -1,19 +1,20 @@
 package astaire;
 
+public class Performer implements Comparable<Performer> {
 
-public class Performer implements Comparable<Performer>{
-	
-	int ID;
+	protected static int lastID = 0;
+	private int ID;
 	String Name;
 	Group group;
+
 	public int getID() {
 		return ID;
 	}
-	
-	public Performer(int id_p, String name_param) {
-		ID = id_p;
+
+	public Performer(String name_param) {
+		ID = nextID();
 		Name = name_param;
-		
+
 	}
 
 	public void setID(int iD) {
@@ -35,11 +36,6 @@ public class Performer implements Comparable<Performer>{
 	public void setGroup(Group group) {
 		this.group = group;
 	}
-	public String toString() {
-		return Name;
-		
-		
-	}
 
 	@Override
 	public int compareTo(Performer p) {
@@ -47,7 +43,14 @@ public class Performer implements Comparable<Performer>{
 		return this.getName().compareToIgnoreCase(p.getName());
 	}
 
-	
-	
+	private static int nextID() {
+		return lastID++;
+
+	}
+
+	@Override
+	public String toString() {
+		return "Performer [ID=" + ID + ", Name=" + Name + "]";
+	}
 
 }

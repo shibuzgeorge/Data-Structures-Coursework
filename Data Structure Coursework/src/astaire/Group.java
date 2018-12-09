@@ -6,12 +6,13 @@ import java.util.List;
 
 public class Group {
 	
+	protected static int lastID = 0;
 	private int ID;
 	private String Name;
 	private ArrayList<Performer> performerList;
 
-	public Group(int id_g, String gn) {
-		ID = id_g;
+	public Group(String gn) {
+		ID = nextID();
 		Name = gn;
 		performerList = new ArrayList<>();
 	}
@@ -43,5 +44,13 @@ public class Group {
 	public void setPerformerList(ArrayList<Performer> performerList) {
 		this.performerList = performerList;
 	}
+	
+	private static int nextID()
+	{
+		return lastID++;
+		
+	}
+	
+	
 
 }

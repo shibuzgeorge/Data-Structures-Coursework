@@ -80,8 +80,8 @@ public class InputReader {
 	
 	public void readNames(String fileName, boolean createGroup) {
 		path = fileName;
-		int k = 0;
-		int h = 0;
+		int performerID = 0;
+		int groupIterator = 0;
 		
 		danceMap = new HashMap<String, TreeSet<Performer>>();
 		 try {
@@ -94,9 +94,9 @@ public class InputReader {
 					for (int j = 0; j < names.length; j++) {
 						if (createGroup) {
 							//System.out.println(groupArray[h].getID());
-							groupArray.get(h).addPerformer(new Performer(k, names[j]));
+							groupArray.get(groupIterator).addPerformer(new Performer(performerID, names[j]));
 							//System.out.println(groupArray.get(h).getPerformerList().get(j).getName());
-							k++;
+							performerID++;
 						} else {
 							//IF GROUP NAMES MATCH
 							System.out.println(names[j]);
@@ -113,18 +113,17 @@ public class InputReader {
 										System.out.println(danceArray.get(i-1).getName());
 										System.out.println(i-1);
 									}
+								} else {
+									//NEED TO FIND A WAY TO SEPERATE THE NAMES
+									System.out.println("new Performer");
+									danceArray.get(i-1).getPerformerTree().add(new Performer(externalID, names[j]));
+									externalID++;
 								}
-//								else {
-//									//NEED TO FIND A WAY TO SEPERATE THE NAMES
-//									//System.out.println("new Performer");
-//									danceArray.get(i-1).getPerformerTree().add(new Performer(externalID, names[j]));
-//									externalID++;
-//								}
 							}
 						}
 					}
-					if (h < groupArray.size()-1) {
-						h++;
+					if (groupIterator < groupArray.size()-1) {
+						groupIterator++;
 					}
 			 	}
 		 }catch (IOException e) {
@@ -149,6 +148,17 @@ public class InputReader {
 		 }catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	public int compareGroupNames(String[] array, Group group) {
+		int index = -1;
+		for (int i=0;i<array.length;i++) {
+		    if (array[i].contains(group.getName())) {
+		        index = i;
+		        break;
+		    }
+		}
+		return index;
 	}
 
 	public HashMap<String, TreeSet<Performer>> getDanceMap() {

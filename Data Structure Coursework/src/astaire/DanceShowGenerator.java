@@ -36,11 +36,12 @@ public class DanceShowGenerator implements Controller{
 		// TODO Auto-generated method stub
 		String output = "";
 		for (int i = 0; i < ir.danceArray.size(); i++) {
-			output += ir.danceArray.get(i).getName() + ": " + "\n";
+			output += ir.danceArray.get(i).getName() + ": ";
 			TreeSet<Performer> tempSet = ir.danceArray.get(i).getPerformerTree();
 			for(Performer p: tempSet) {
-				output += p.getName() + "\n";
+				output += p.getName();
 			}
+			output += "\n";
 		}
 		return output;
 	}

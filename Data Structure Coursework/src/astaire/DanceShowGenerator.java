@@ -18,17 +18,19 @@ public class DanceShowGenerator implements Controller{
 	@Override
 	public String listAllDancersIn(String dance) {
 		// TODO Auto-generated method stub
-		String temp = ": ";
+		String temp = ": [";
 		for (int i = 0; i < ir.danceArray.size(); i++) {
-			TreeSet<Performer> tempSet = ir.danceArray.get(i).getPerformerTree();	
+			TreeSet<Performer> tree = new TreeSet<Performer>();
+			TreeSet<Performer> tempSet = ir.danceArray.get(i).getPerformerTree();
+			tree.addAll(tempSet);
 			if (dance.contains(ir.danceArray.get(i).getName())) {
-				for (Performer p: tempSet) {
-					temp += "," + p.getName();
+				for (Performer p: tree) {
+					 temp += p.getName() +  ",";
 				}
 				break;
 			}
 		}
-		return dance + temp;
+		return  dance + temp + "]";
 	}
 
 	@Override
@@ -36,14 +38,15 @@ public class DanceShowGenerator implements Controller{
 		// TODO Auto-generated method stub
 		String output = "";
 		for (int i = 0; i < ir.danceArray.size(); i++) {
-			output += ir.danceArray.get(i).getName() + ": ";
+			output += ir.danceArray.get(i).getName() + ": [";
 			TreeSet<Performer> tempSet = ir.danceArray.get(i).getPerformerTree();
 			for(Performer p: tempSet) {
-				output += p.getName();
+				output += p.getName() + ", ";
 			}
-			output += "\n";
+
+			output += "] \n";
 		}
-		return output;
+		return output ;
 	}
 
 	@Override

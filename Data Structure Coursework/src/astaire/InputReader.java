@@ -113,12 +113,14 @@ public class InputReader {
 										System.out.println(danceArray.get(i-1).getName());
 										System.out.println(i-1);
 									}
-								} else {
+								}
+							}
+							if (!compareGroupNames(names[j])) {
 									//NEED TO FIND A WAY TO SEPERATE THE NAMES
 									System.out.println("new Performer");
+									System.out.println(names[j]);
 									danceArray.get(i-1).getPerformerTree().add(new Performer(externalID, names[j]));
 									externalID++;
-								}
 							}
 						}
 					}
@@ -150,15 +152,24 @@ public class InputReader {
 		}
 	}
 	
-	public int compareGroupNames(String[] array, Group group) {
-		int index = -1;
-		for (int i=0;i<array.length;i++) {
-		    if (array[i].contains(group.getName())) {
-		        index = i;
-		        break;
-		    }
+	public boolean checkFeasibility(String fileName, int gap) {
+		boolean isFeasible = false;
+		
+		return isFeasible;
+		
+	}
+	
+	public boolean compareGroupNames(String name) {
+		boolean isEqual = false;
+		for(Group g : groupArray) {
+			if (name.contains(g.getName())) {
+				isEqual = true; 
+				break;
+			} else {
+				isEqual = false;
+			}
 		}
-		return index;
+		return isEqual;
 	}
 
 	public HashMap<String, TreeSet<Performer>> getDanceMap() {

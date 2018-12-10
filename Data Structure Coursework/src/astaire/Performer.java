@@ -1,6 +1,7 @@
 package astaire;
 
-public class Performer implements Comparable{
+
+public class Performer implements Comparable<Performer>{
 	
 	int ID;
 	String Name;
@@ -37,23 +38,15 @@ public class Performer implements Comparable{
 	public String toString() {
 		return Name;
 		
+		
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		if (!(o instanceof Performer)) {
-			return -1;
-		}
-		
-		Performer p = (Performer) o;
-		int c = this.getName().compareToIgnoreCase(p.getName());
-		if ( c == 0) {
-			c = this.getName().substring(0, 1).compareToIgnoreCase(p.getName().substring(0, 1));
-		} else {
-			c = -1;
-		}
-		return c;
+	public int compareTo(Performer p) {
+		// TODO Auto-generated method stub
+		return this.getName().compareToIgnoreCase(p.getName());
 	}
+
 	
 	
 

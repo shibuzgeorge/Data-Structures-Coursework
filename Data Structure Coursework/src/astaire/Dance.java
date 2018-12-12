@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeSet;
 
-public class Dance implements Comparable<Dance>{
+public class Dance {
 
 	private int Id;
 	private String name;
@@ -55,11 +55,6 @@ public class Dance implements Comparable<Dance>{
 		this.performerTree = performerTree;
 	}
 
-	@Override
-	public int compareTo(Dance d) {
-		// TODO Auto-generated method stub
-		return this.getName().compareToIgnoreCase(d.getName());
-	}
 
 	
 	

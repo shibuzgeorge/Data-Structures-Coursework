@@ -88,7 +88,7 @@ public class InputReader {
 					for (int j = 0; j < names.length; j++) {
 						if (createGroup) {
 							//System.out.println(groupArray[h].getID());
-							groupArray.get(groupIterator).addPerformer(new Performer(performerID, names[j]));
+							groupArray.get(groupIterator).addPerformer(new Performer(performerID, names[j].trim()));
 							//System.out.println(groupArray.get(h).getPerformerList().get(j).getName());
 							performerID++;
 						} else {
@@ -113,7 +113,7 @@ public class InputReader {
 									//NEED TO FIND A WAY TO SEPERATE THE NAMES
 									System.out.println("new Performer");
 									System.out.println(names[j]);
-									danceArray.get(i-1).getPerformerTree().add(new Performer(externalID, names[j]));
+									danceArray.get(i-1).getPerformerTree().add(new Performer(externalID, names[j].trim()));
 									externalID++;
 							}
 						}

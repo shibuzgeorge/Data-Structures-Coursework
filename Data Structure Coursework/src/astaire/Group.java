@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Group {
+public class Group{
 	
 	private int ID;
 	private String Name;
@@ -43,5 +43,7 @@ public class Group {
 	public void setPerformerList(ArrayList<Performer> performerList) {
 		this.performerList = performerList;
 	}
+
+
 
 }

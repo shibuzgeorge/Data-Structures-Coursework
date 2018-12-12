@@ -1,5 +1,7 @@
 package astaire;
 
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.TreeSet;
 
 public class DanceShowGenerator implements Controller{
@@ -41,6 +43,7 @@ public class DanceShowGenerator implements Controller{
 		String output = "";
 		System.out.println(ir.danceArray.size());
 		for (int i = 0; i < ir.getDanceArray().size(); i++) {
+			ir.getDanceArray().sort(Comparator.comparing(Dance::getName));
 			output += ir.getDanceArray().get(i).getName() + ": [";
 			TreeSet<Performer> tempSet = ir.getDanceArray().get(i).getPerformerTree();
 			for(Performer p: tempSet) {

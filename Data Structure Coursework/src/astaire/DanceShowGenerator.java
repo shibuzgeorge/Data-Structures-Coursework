@@ -10,9 +10,10 @@ public class DanceShowGenerator implements Controller{
 	public DanceShowGenerator() {
 		ir = new InputReader();
 		ir.readGroupNames("astaireDataFiles/danceShowData_danceGroups.csv");
-		ir.readNames("astaireDataFiles/danceShowData_danceGroups.csv", true);
+		ir.readNames(true, "astaireDataFiles/danceShowData_danceGroups.csv");
 		ir.readDances("astaireDataFiles/danceShowData_dances.csv");
-		ir.readNames("astaireDataFiles/danceShowData_dances.csv", false);
+		ir.readNames(false, "astaireDataFiles/danceShowData_dances.csv");
+		
 	}
 
 	@Override
@@ -36,10 +37,12 @@ public class DanceShowGenerator implements Controller{
 	@Override
 	public String listAllDancesAndPerformers() {
 		// TODO Auto-generated method stub
+		
 		String output = "";
-		for (int i = 0; i < ir.danceArray.size(); i++) {
-			output += ir.danceArray.get(i).getName() + ": [";
-			TreeSet<Performer> tempSet = ir.danceArray.get(i).getPerformerTree();
+		System.out.println(ir.danceArray.size());
+		for (int i = 0; i < ir.getDanceArray().size(); i++) {
+			output += ir.getDanceArray().get(i).getName() + ": [";
+			TreeSet<Performer> tempSet = ir.getDanceArray().get(i).getPerformerTree();
 			for(Performer p: tempSet) {
 				output += p.getName() + ", ";
 			}
@@ -52,6 +55,7 @@ public class DanceShowGenerator implements Controller{
 	@Override
 	public String checkFeasibilityOfRunningOrder(String filename, int gaps) {
 		// TODO Auto-generated method stub
+		ir.checkFeasibility(filename, gaps);
 		return null;
 	}
 

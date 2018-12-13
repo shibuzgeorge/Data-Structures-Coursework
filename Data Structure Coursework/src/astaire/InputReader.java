@@ -63,10 +63,7 @@ public class InputReader {
 				String line = (lines[i].substring(0, lines[i].indexOf("\t")));
 				String[] groupNames = line.split("\t");
 				for (int j = 0; j < groupNames.length; j++) {
-					// new Group(j, groupNames[j]).getName();
 					groupArray.add(new Group(k, groupNames[j]));
-					// PRINTS GROUP NAMES
-					// System.out.println(groupArray.get(k).getName());
 					k++;
 				}
 			}
@@ -88,34 +85,23 @@ public class InputReader {
 				String[] names = eachLine.split(",");
 				for (int j = 0; j < names.length; j++) {
 					if (createGroup) {
-						// System.out.println(groupArray[h].getID());
 						groupArray.get(groupIterator).addPerformer(new Performer(performerID, names[j], groupArray.get(groupIterator)));
-						
-					
-						// System.out.println(groupArray.get(h).getPerformerList().get(j).getName());
 						performerID++;
 					} else {
 						// IF GROUP NAMES MATCH
 						System.out.println(names[j]);
 						for (Group s : groupArray) {
-							// System.out.println(names[j].contains(s.getName()));
 							if (names[j].contains(s.getName())) {
 								System.out.println("Match");
 								for (int l = 0; l < s.getPerformerList().size(); l++) {
 
 									// Add those performers to dance
-									// System.out.println(groupArray.get(h).getPerformerList().get(l).getName());
 									danceArray.get(i - 1).getPerformerTree().add(s.getPerformerList().get(l));
-									System.out.println(danceArray.get(i - 1).getPerformerTree().iterator().next());
-									System.out.println(danceArray.get(i - 1).getName());
-									System.out.println(i - 1);
 								}
 							}
 						}
-						if (!compareGroupNames(names[j])) {
+						if (compareGroupNames(names[j]) == null) {
 							// NEED TO FIND A WAY TO SEPERATE THE NAMES
-							System.out.println("new Performer");
-							System.out.println(names[j]);
 							danceArray.get(i - 1).getPerformerTree().add(new Performer(externalID, names[j], null));
 							externalID++;
 						}
@@ -149,77 +135,6 @@ public class InputReader {
 		return getDanceArray();
 	}
 
-//	public boolean checkFeasibility(String fileName, int gap) {
-//		boolean isFeasible = false;
-//		try {
-//			lines = OpenFile(fileName);
-//			//LOOP THROUGH LINES OF FILE
-//			for (int i = 1; i < lines.length; i++) {
-//				int counter = 0;
-//				
-//				String eachLine = (lines[i].substring(lines[i].indexOf("\t")+1));
-//				String[] names = eachLine.split(",");
-//					
-//					//LOOP THROUGH NAMES
-//					for (int j = 0; j < names.length; j++) {
-//						
-//						//LOOP THROUGH LINES
-//						for (int k = 1; k < lines.length; k++) {
-//							
-//							String eachLine2 = (lines[k].substring(lines[k].indexOf("\t")+1));
-//							String[] namesToCompare = eachLine.split(",");
-//							
-//							//LOOP THROUGH NAMES
-//							for (int l = 0; l < namesToCompare.length; l++) {
-//								if (names[j].equals(namesToCompare[l])) {
-//									System.out.println("1st Line: "+ i);
-//									System.out.println("LINE:" + k);
-//									
-//									System.out.println("ORIGINAL NAME: " + names[j]);
-//									System.out.println("COMPARED NAME: " + namesToCompare[l]);
-//									
-//									counter++;
-//									
-//									if (counter > 1) {
-//										if (k == i) {
-//											System.out.println("SAME");
-//										} else if ((k-i < gap) && (k - i >= 0)) {
-//											isFeasible = false;
-//											System.out.println("NEVER FEASIBLE");
-//											counter = 0;
-//										} else {
-//											isFeasible = true;
-//											System.out.println("FEASIBLE SDFGHJKJHGFDS");
-//											counter = 0;
-//										}
-//										
-//										//astaireDataFiles/danceShowData_runningOrder.csv
-//									}
-//									//System.out.println(comparePerformerNameToGroupName(names[j]));
-//								}
-//							}
-//						}
-//					}
-////					if (!isFeasible) {
-////						break;
-////					}
-//					
-//			}
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		if (isFeasible) {
-//			System.out.println("IS FEASIBLE");
-//		} else {
-//			System.out.println("IS NOT FEASIBLE");
-//			//astaireDataFiles/danceShowData_runningOrder.csv
-//		}
-//		
-//		return isFeasible;
-//		
-//	}
 
 	public String checkFeasibility(String fileName, int gap) {
 		String isFeasible = "Is Feasible";
@@ -235,12 +150,10 @@ public class InputReader {
 				for (String name : names) {
 					name = name.trim();
 					/* Increment count of number of times name has been seen */
-
 					for (int j = 0; j < groupArray.size(); j++) {
 						for (int k = 0; k < groupArray.get(j).getPerformerList().size(); k++) {
 							Performer tempPerformer = groupArray.get(j).getPerformerList().get(k);
 							if (name.equals(tempPerformer.getName())) {
-								System.out.println(tempPerformer.getGroup().getName());
 								CountTracker ct = tracker.get(tempPerformer.getGroup().getName());
 								if (ct == null) {
 									tracker.put(tempPerformer.getGroup().getName(), new CountTracker(i));
@@ -250,8 +163,8 @@ public class InputReader {
 									
 									tracker.put(tempPerformer.getGroup().getName(), ct);
 									if (ct.getLastSeen() - ct.getFoundOn() <= gap && ct.getLastSeen() - ct.getFoundOn() > 0) {
-										isFeasible = "FALSE";
-										System.out.println("uyfsidbhoinbrsboghsklndgehiord");
+										isFeasible = "Not Feasible: " + "\n" + name + " repeats in " + 
+												tempPerformer.getGroup().getName();
 										return isFeasible;
 									}
 								}
@@ -268,20 +181,10 @@ public class InputReader {
 						
 						tracker.put(name, ct);
 						if (ct.getLastSeen() - ct.getFoundOn() <= gap && ct.getLastSeen() - ct.getFoundOn() > 0) {
-							isFeasible = "FALSE";
-							System.out.println("uyfsidbhoinbrsboghsklndgehiord");
+							isFeasible = "Not Feasible: " + "\n" + name;
 							return isFeasible;
 						}
 					}
-
-//					for (int k = 0; k < gap; k++) {
-//						if(tracker.containsKey(names[j])) {
-//						}
-//						else {
-//							tracker.put(names[j], null);
-//							isFeasible = "Is NOT Feasible";
-//						}
-//						}
 				}
 			}
 
@@ -305,17 +208,15 @@ public class InputReader {
 		return "";
 	}
 
-	public boolean compareGroupNames(String name) {
-		boolean isEqual = false;
+	public Group compareGroupNames(String name) {
+		Group group = null;
 		for (Group g : groupArray) {
 			if (name.contains(g.getName())) {
-				isEqual = true;
+				group = g;
 				break;
-			} else {
-				isEqual = false;
 			}
 		}
-		return isEqual;
+		return group;
 	}
 
 	public ArrayList<Group> getGroupArray() {

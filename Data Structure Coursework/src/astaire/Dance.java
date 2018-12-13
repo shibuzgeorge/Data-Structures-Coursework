@@ -1,8 +1,5 @@
 package astaire;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.TreeSet;
 
 public class Dance implements Comparable<Dance>{
@@ -20,17 +17,27 @@ public class Dance implements Comparable<Dance>{
 	}
 	
 	public void removePerformer(Performer p) {
-		//pQueue.removeElement(p);
 		performerTree.remove(p);
 	}
 	
-	public TreeSet<Performer> getAllPerformer() {
-		return performerTree;	
+	public String getPerformers() {
+		String allNames = "";
+		for (Performer p : performerTree) {
+			allNames = allNames + "" + p.getName() + ",";
+		}
+		return allNames;
 	}
 	
-	public String getPerformers() {
-		return performerTree.iterator().next().getName();
-		
+	public boolean comparePerformerNames(String[] name, Dance dName) {
+		boolean isFound = false;
+		for(int i = 0; i < name.length; i++) {
+			if (dName.getPerformers().contains(name[i].trim())) {
+				isFound = true;
+				break;
+			}
+			dName.getPerformers();
+		}
+		return isFound;
 	}
 
 	

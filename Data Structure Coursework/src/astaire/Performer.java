@@ -6,14 +6,15 @@ public class Performer implements Comparable<Performer>{
 	int ID;
 	String Name;
 	Group group;
+	
 	public int getID() {
 		return ID;
 	}
 	
-	public Performer(int id_p, String name_param) {
+	public Performer(int id_p, String name_param, Group group) {
 		ID = id_p;
 		Name = name_param;
-		
+		this.group = group;
 	}
 
 	public void setID(int iD) {

@@ -13,7 +13,7 @@ public class Group{
 	public Group(int id_g, String gn) {
 		ID = id_g;
 		Name = gn;
-		performerList = new ArrayList<>();
+		performerList = new ArrayList<Performer>();
 	}
 	
 	public int getID() {
